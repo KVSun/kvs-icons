@@ -2,9 +2,11 @@
 
 -   [General](#general)
 -   [SVG structure](#svg-structure)
+-   [Inkscape instructions](#inkscape-instructions)
 -   [Exporting from Illustrator](#exporting-from-illustrator)
 -   [Files](#allowed-files)
 -   [Tests & linting](#tests-and-linting)
+
 - - -
 
 ## General
@@ -27,13 +29,26 @@ Use "websafe" / "system" fonts, if any.
 </svg>
 ```
 
+## Inkscape Instructions
+
+For complex shapes, try simplifying paths: **Path > Simplify**
+Save icons as **Optimized SVG (*.svg)**
+
+For **Optimized SVG Output** dialog, select the following options:
+
+[![Options](http://i.imgur.com/WFfUnnu.png)](http://i.imgur.com/WFfUnnu.png)
+
+[![SVG Output](http://i.imgur.com/eEKB7Qb.png)](http://i.imgur.com/eEKB7Qb.png)
+
+[![IDs](http://i.imgur.com/VxGwUiy.png)](http://i.imgur.com/VxGwUiy.png)
+
 ## Exporting from Illustrator
 [![The different Ways of Getting SVG Out of Adobe Illustrator](https://cdn.css-tricks.com/wp-content/uploads/2016/11/export-svg-options.png)](https://css-tricks.com/illustrator-to-svg/)
 
 See: [How to export SVG](https://helpx.adobe.com/illustrator/how-to/export-svg.html)
 
 -   You may (*but shouldn't*) use "Illustrator Effects", but **not** "Photoshop Effects"
--   Simplify paths: **Object -> Path -> Simplify...**
+-   For complex shapes, try simplifying paths: **Object > Path > Simplify...**
 -   Export: **File > Export... > Format: SVG**
 -   Fonts: **Type: SVG**
 -   Images: **Makes no difference. `<images>` are not allowed in icons**
