@@ -18,6 +18,8 @@ use \SplFileObject as File;
 use \Throwable;
 use \Error;
 
+const VERSION = '1.0';
+const ENCODING = 'UTF-8';
 const INVALID_ATTRS = [
 	'style',
 	['http://www.inkscape.org/namespaces/inkscape', 'version'],
@@ -31,24 +33,44 @@ const INVALID_TAGS = [
 	'image',
 ];
 
-const VERSION = '1.0';
-const ENCODING = 'UTF-8';
 const EXTS = [
 	'svg',
 ];
 
-function lint_svg(SVG $svg): Bool
-{
-	has_required_attrs($svg);
-	lint_nodes($svg->getElementsByTagName('*'));
-	return true;
-}
-
-function has_required_attrs(SVG $svg): Bool
+/**
+ * Lint an
+ * @param  SVG  $svg SVG loaded as a `DomDocument`
+ * @return Bool      Whether or not it is valid
+ */
+function lint_svg(SVG $svg, String $name): Bool
 {
 	$valid = true;
-	foreach (REQUIRED_ATTRS as $attr) {
-		if (! $svg->documentElement->hasAttribute($attr)) {
+	try {
+		if ($svg->documentElement->tagName !== 'svg') {
+			throw new Error('Not a valid SVG');
+		} elseif (! has_required_attrs($svg->documentElement)) {
+			throw new Error(sprintf('Does not have all required attributes: [%s]', join(', ', REQUIRED_ATTRS)));
+		} elseif (! lint_nodes($svg->getElementsByTagName('*'))) {
+			//
+		}
+	} catch (Throwable $e) {
+		$valid = false;
+		echo "{$e->getMessage()} in '{$name}'" . PHP_EOL;
+	} finally {
+		return $valid;
+	}
+}
+
+/**
+ * Check that an `<svg>` has all
+ * @param  SVG  $svg The `<svg>` / documentElement
+ * @return Bool      Whether or not it is has all required attributes
+ */
+function has_required_attrs(Element $svg, Array $attrs = REQUIRED_ATTRS): Bool
+{
+	$valid = true;
+	foreach ($attrs as $attr) {
+		if (! $svg->hasAttribute($attr)) {
 			$valid = false;
 			Throw new Error("Missing '{$attr}' attribute");
 			break;
@@ -57,6 +79,11 @@ function has_required_attrs(SVG $svg): Bool
 	return $valid;
 }
 
+/**
+ * Check that all elements of SVG are valid
+ * @param  NodeList $nodes All elements of an `<svg>`
+ * @return Bool            Whether or not they are valid
+ */
 function lint_nodes(NodeList $nodes): Bool
 {
 	$valid = true;
@@ -69,6 +96,11 @@ function lint_nodes(NodeList $nodes): Bool
 	return $valid;
 }
 
+/**
+ * Checks that an element in an SVG is a valid element and does not have invalid attributes
+ * @param  Element $node An element from an `<svg>`
+ * @return Bool          Whether or not the element is valid
+ */
 function lint_node(Element $node): Bool
 {
 	$valid = true;
@@ -99,28 +131,31 @@ function lint_dir(
 ): Bool
 {
 	$path = new Directory($dir, Directory::SKIP_DOTS);
-
+	$valid = true;
 	while ($path->valid()) {
 		if ($path->isFile() and in_array($path->getExtension(), $exts)) {
 			try {
 				$svg = new SVG(VERSION, ENCODING);
 				$svg->load($path->getPathname());
-				lint_svg($svg);
+				if(! lint_svg($svg, $path->getBasename())) {
+					$valid = false;
+				}
 			} catch (Throwable $e) {
 				echo "{$e->getMessage()} in {$path->getBasename()}" . PHP_EOL;
-				return false;
+				$valid = false;
 			}
 		} elseif ($path->isDir() and ! in_array($path, $ignore_dirs)) {
 			// So long as $dir is the first argument of the function, this will
 			// always work, even if the name of the function changes.
 			$args = array_slice(func_get_args(), 1);
 			if (! call_user_func(__FUNCTION__, $path->getPathName(), ...$args)) {
-				return false;
+				$valid = false;
 			}
 		}
 		$path->next();
 	}
-	return true;
+	return $valid;
 }
 
-lint_dir(__DIR__);
+// Exiting with 0 means pass, 1 means fail
+exit(lint_dir(__DIR__) ? 0 : 1);
