@@ -1,14 +1,6 @@
 <?php
 namespace SVGLint;
-/**
- * Recursively lint a directory
- * @param  String   $dir            Directory to lint
- * @param  Array    $exts           Array of extensions to lint in directory
- * @param  Array    $ignore_dirs    Ignore directories in this array
- * @param  Callable $error_callback Callback to call when linting fails
- * @return Bool                     Whether or not all files linted without errors
- * @see https://secure.php.net/manual/en/class.recursiveiteratoriterator.php
- */
+
 use \FilesystemIterator;
 use \RecursiveDirectoryIterator as Directory;
 use \DomDocument as SVG;
@@ -18,27 +10,52 @@ use \SplFileObject as File;
 use \Throwable;
 use \Error;
 
+/**
+ * XML version string
+ * @var string
+ */
 const VERSION = '1.0';
+/**
+ * XML encoding / charset
+ * @var string
+ */
 const ENCODING = 'UTF-8';
+
+/**
+ * Attributes that are invalid
+ * @var Array
+ */
 const INVALID_ATTRS = [
 	'style',
 	['http://www.inkscape.org/namespaces/inkscape', 'version'],
 ];
 
+/**
+ * Attributes that are required on `<svg>` elements
+ * @var Array
+ */
 const REQUIRED_ATTRS = [
 	'viewBox',
 ];
 
+/**
+ * Invalid `<svg>` child node tagnames
+ * @var Array
+ */
 const INVALID_TAGS = [
 	'image',
 ];
 
+/**
+ * Extensions to lint
+ * @var Array
+ */
 const EXTS = [
 	'svg',
 ];
 
 /**
- * Lint an
+ * Lint an SVG that has been loaded into a `DOMDocument`
  * @param  SVG  $svg SVG loaded as a `DomDocument`
  * @return Bool      Whether or not it is valid
  */
@@ -62,7 +79,7 @@ function lint_svg(SVG $svg, String $name): Bool
 }
 
 /**
- * Check that an `<svg>` has all
+ * Check that an `<svg>` has all required attributes
  * @param  SVG  $svg The `<svg>` / documentElement
  * @return Bool      Whether or not it is has all required attributes
  */
@@ -123,6 +140,15 @@ function lint_node(Element $node): Bool
 	return $valid;
 }
 
+/**
+ * Recursively lint a directory
+ * @param  String   $dir            Directory to lint
+ * @param  Array    $exts           Array of extensions to lint in directory
+ * @param  Array    $ignore_dirs    Ignore directories in this array
+ * @param  Callable $error_callback Callback to call when linting fails
+ * @return Bool                     Whether or not all files linted without errors
+ * @see https://secure.php.net/manual/en/class.recursiveiteratoriterator.php
+ */
 function lint_dir(
 	String   $dir            = __DIR__,
 	Array    $exts           = EXTS,
