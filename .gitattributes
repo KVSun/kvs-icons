@@ -8,3 +8,4 @@
 *.gpg    diff=gpg
 *.pgp    diff=gpg
 ..ai filter=lfs diff=lfs merge=lfs -text
+*.ai filter=lfs diff=lfs merge=lfs -text
