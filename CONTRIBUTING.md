@@ -16,11 +16,14 @@ Write access to the GitHub repository is restricted, so make a fork and clone th
 
 ## SVG structure
 
-SVGs **MUST** have `viewBox` attribute. `height` and `width` are optional.  
+SVGs **MUST** have `viewBox` & `version` attributes. `height` and `width` are optional.  
 Where possible, use shapes (`<rect>`, `<circle>` over `<path>`).  
 Do not outline text. This makes for larger files and limits what can be done
 using CSS.  
-Use "websafe" / "system" fonts, if any.
+Use "websafe" / "system" fonts, if any.  
+SVGs should be properly formatted with newlines. While this does take up *slightly*
+more space, gzip compression makes this irrelevant, and having multiple lines is
+vastly better for viewing diffs and for version control in general.
 
 ```xml
 <svg viewBox="0 0 16 16" width="16" height="16" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -53,7 +56,7 @@ See: [How to export SVG](https://helpx.adobe.com/illustrator/how-to/export-svg.h
 -   Fonts: **Type: SVG**
 -   Images: **Makes no difference. `<images>` are not allowed in icons**
 -   Make sure to use presentation attributes instead of internal CSS under "Styling"
--   Check both "Minify" & "Responsive"
+-   Check "Responsive" but not "Minify"
 
 ## Allowed files
 All Illustrator (binary) files are stored using Git LFS. All SVG files, being XML, are
