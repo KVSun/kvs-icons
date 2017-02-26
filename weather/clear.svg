@@ -1,1 +1,21 @@
-<svg width="17.067" height="17.067" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><g><path d="M7.996 2.99c-2.75 0-5.006 2.257-5.006 5.006s2.256 5.007 5.006 5.007 5.006-2.257 5.006-5.007S10.746 2.99 7.996 2.99z"/><g transform="translate(-81 -277)"><rect x="81" y="284" width="2" height="2" rx=".563" ry=".563"/><rect x="95" y="284" width="2" height="2" rx=".563" ry=".563"/></g><g transform="rotate(90 187 106)"><rect x="81" y="284" width="2" height="2" rx=".563" ry=".563"/><rect x="95" y="284" width="2" height="2" rx=".563" ry=".563"/></g><g transform="rotate(135 105.869 129.724)"><rect x="81" y="284" width="2" height="2" rx=".563" ry=".563"/><rect x="95" y="284" width="2" height="2" rx=".563" ry=".563"/></g><g transform="rotate(45 382.869 48.724)"><rect x="81" y="284" width="2" height="2" rx=".563" ry=".563"/><rect x="95" y="284" width="2" height="2" rx=".563" ry=".563"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="17.067" height="17.067" viewBox="0 0 16 16" version="1.1">
+  <g>
+    <path d="M7.996 2.99c-2.75 0-5.006 2.257-5.006 5.006s2.256 5.007 5.006 5.007 5.006-2.257 5.006-5.007S10.746 2.99 7.996 2.99z"/>
+    <g transform="translate(-81 -277)">
+      <rect x="81" y="284" width="2" height="2" rx=".563" ry=".563"/>
+      <rect x="95" y="284" width="2" height="2" rx=".563" ry=".563"/>
+    </g>
+    <g transform="rotate(90 187 106)">
+      <rect x="81" y="284" width="2" height="2" rx=".563" ry=".563"/>
+      <rect x="95" y="284" width="2" height="2" rx=".563" ry=".563"/>
+    </g>
+    <g transform="rotate(135 105.869 129.724)">
+      <rect x="81" y="284" width="2" height="2" rx=".563" ry=".563"/>
+      <rect x="95" y="284" width="2" height="2" rx=".563" ry=".563"/>
+    </g>
+    <g transform="rotate(45 382.869 48.724)">
+      <rect x="81" y="284" width="2" height="2" rx=".563" ry=".563"/>
+      <rect x="95" y="284" width="2" height="2" rx=".563" ry=".563"/>
+    </g>
+  </g>
+</svg>

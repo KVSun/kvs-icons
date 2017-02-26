@@ -44,6 +44,7 @@ const INVALID_ATTRS = [
  */
 const REQUIRED_ATTRS = [
 	'viewBox',
+	'version',
 ];
 
 /**
