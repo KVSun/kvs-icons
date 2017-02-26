@@ -34,8 +34,8 @@ function lint_svg(SVG $svg, String $name): Bool
 			throw new Error('Not a valid SVG');
 		} elseif (! has_required_attrs($svg->documentElement)) {
 			throw new Error(sprintf('Does not have all required attributes: [%s]', join(', ', REQUIRED_ATTRS)));
-		} elseif (! lint_nodes($svg->getElementsByTagName('*'))) {
-			//
+		} else {
+			lint_nodes($svg->getElementsByTagName('*'));
 		}
 	} catch (Throwable $e) {
 		$valid = false;
